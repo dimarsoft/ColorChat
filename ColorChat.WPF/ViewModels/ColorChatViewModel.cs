@@ -3,6 +3,7 @@ using ColorChat.WPF.Commands;
 using ColorChat.WPF.Services;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using Serilog;
 
 namespace ColorChat.WPF.ViewModels
 {
@@ -70,8 +71,10 @@ namespace ColorChat.WPF.ViewModels
 
         public ICommand SendColorChatColorMessageCommand { get; }
 
+        private readonly ILogger _logger;
         private ColorChatViewModel(SignalRChatService chatService)
-		{
+        {
+	        _logger = Log.Logger;
             SendColorChatColorMessageCommand = new SendColorChatColorMessageCommand(this, chatService);
 
 			Messages = new ObservableCollection<ColorChatColorViewModel>();
@@ -88,6 +91,9 @@ namespace ColorChat.WPF.ViewModels
                 if(task.Exception != null)
                 {
                     viewModel.ErrorMessage = "Unable to connect to color chat hub";
+            
+                    Log.Logger.Error(task.Exception, "Unable to connect to color chat hub");
+                    
                 }
             });
 
@@ -97,6 +103,8 @@ namespace ColorChat.WPF.ViewModels
         private void ChatService_ColorMessageReceived(ColorChatColor color)
         {
             Messages.Add(new ColorChatColorViewModel(color));
+            
+            _logger.Debug("ColorMessageReceived: {Color}", color.ToString());
         }
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 
 namespace ColorChat.SignalR
 {
@@ -46,6 +47,8 @@ namespace ColorChat.SignalR
 
             app.UseAuthentication();
             app.UseAuthorization();
+            
+            Log.Logger.Debug("UseEndpoints");
 
             app.UseEndpoints(endpoints =>
             {

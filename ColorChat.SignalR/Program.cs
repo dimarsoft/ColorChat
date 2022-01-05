@@ -1,5 +1,7 @@
+using System.Reflection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 
 namespace ColorChat.SignalR
 {
@@ -7,6 +9,12 @@ namespace ColorChat.SignalR
     {
         public static void Main(string[] args)
         {
+            var appName = Assembly.GetAssembly(typeof(Program))?.GetName().Name;
+            //var dataTag = $"{DateTime.Now:yyyy-MM-dd_HH_mm_ss}";
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Verbose()
+                .WriteTo.File(string.Format($"{appName}.log"))
+                .CreateLogger();            
             CreateHostBuilder(args).Build().Run();
         }
 

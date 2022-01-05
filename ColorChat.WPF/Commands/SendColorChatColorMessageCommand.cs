@@ -2,9 +2,6 @@
 using ColorChat.WPF.Services;
 using ColorChat.WPF.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Text;
 using System.Windows.Input;
 
 namespace ColorChat.WPF.Commands
@@ -20,7 +17,7 @@ namespace ColorChat.WPF.Commands
             _chatService = chatService;
         }
 
-        public event EventHandler CanExecuteChanged;
+        public event EventHandler CanExecuteChanged = (sender, args) => {};
 
         public bool CanExecute(object parameter)
         {

@@ -1,8 +1,6 @@
 ﻿using ColorChat.Domain.Models;
 using Microsoft.AspNetCore.SignalR.Client;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ColorChat.WPF.Services

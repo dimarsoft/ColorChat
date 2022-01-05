@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ColorChat.Domain.Models
+﻿namespace ColorChat.Domain.Models
 {
     public class ColorChatColor
     {

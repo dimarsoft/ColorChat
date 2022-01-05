@@ -2,7 +2,6 @@
 using ColorChat.WPF.Commands;
 using ColorChat.WPF.Services;
 using System.Collections.ObjectModel;
-using System.Drawing;
 using System.Windows.Input;
 
 namespace ColorChat.WPF.ViewModels
@@ -12,10 +11,7 @@ namespace ColorChat.WPF.ViewModels
         private byte _red;
         public byte Red
         {
-            get
-            {
-                return _red;
-            }
+            get => _red;
             set
             {
                 _red = value;
@@ -26,10 +22,7 @@ namespace ColorChat.WPF.ViewModels
         private byte _green;
         public byte Green
         {
-            get
-            {
-                return _green;
-            }
+            get => _green;
             set
             {
                 _green = value;
@@ -40,10 +33,7 @@ namespace ColorChat.WPF.ViewModels
         private byte _blue;
         public byte Blue
         {
-            get
-            {
-                return _blue;
-            }
+            get => _blue;
             set
             {
                 _blue = value;
@@ -54,10 +44,7 @@ namespace ColorChat.WPF.ViewModels
         private string _errorMessage = string.Empty;
 		public string ErrorMessage
 		{
-			get
-			{
-				return _errorMessage;
-			}
+			get => _errorMessage;
 			set
 			{
 				_errorMessage = value;
@@ -71,10 +58,7 @@ namespace ColorChat.WPF.ViewModels
 		private bool _isConnected;
 		public bool IsConnected
 		{
-			get
-			{
-				return _isConnected;
-			}
+			get => _isConnected;
 			set
 			{
 				_isConnected = value;
@@ -86,7 +70,7 @@ namespace ColorChat.WPF.ViewModels
 
         public ICommand SendColorChatColorMessageCommand { get; }
 
-		public ColorChatViewModel(SignalRChatService chatService)
+        private ColorChatViewModel(SignalRChatService chatService)
 		{
             SendColorChatColorMessageCommand = new SendColorChatColorMessageCommand(this, chatService);
 

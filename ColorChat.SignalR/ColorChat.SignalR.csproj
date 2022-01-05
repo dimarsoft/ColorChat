@@ -8,4 +8,8 @@
     <ProjectReference Include="..\ColorChat.Domain\ColorChat.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.22" />
+  </ItemGroup>
+
 </Project>

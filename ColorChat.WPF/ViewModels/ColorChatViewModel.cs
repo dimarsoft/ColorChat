@@ -2,12 +2,75 @@
 using ColorChat.WPF.Commands;
 using ColorChat.WPF.Services;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using Serilog;
 
 namespace ColorChat.WPF.ViewModels
 {
-    public class ColorChatViewModel : ViewModelBase
+	internal sealed class LanguageViewModel : ViewModelBase
+	{
+		private bool _isSelected;
+
+		public LanguageViewModel(string name)
+		{
+			Name = name;
+		}
+
+		public bool IsSelected
+		{
+			get => _isSelected;
+			set
+			{
+				_isSelected = value;
+				
+				OnPropertyChanged();
+			}
+		}
+
+		public string Name { get; }
+
+		public override string ToString()
+		{
+			return Name;
+		}
+	}
+
+	internal sealed class LanguageSelectionViewModel : ViewModelBase
+	{
+		private static readonly string[] Langs = { "En", "Ru", "De" };
+		public ObservableCollection<LanguageViewModel> Languages { get; }
+		public ICommand SelectLangCommand { get; }
+		public LanguageViewModel Selected { get; private set; }
+
+		public LanguageSelectionViewModel()
+		{
+			Languages = new ObservableCollection<LanguageViewModel>(Langs.Select(x => new LanguageViewModel(x)));
+
+			Selected = Languages.First();
+
+			Selected.IsSelected = true;
+
+			SelectLangCommand = new RelayCommand(Execute);
+		}
+
+		private void Execute(object obj)
+		{
+			if (obj is LanguageViewModel languageViewModel)
+			{
+				Selected.IsSelected = false;
+
+				Selected = languageViewModel;
+
+				Selected.IsSelected = true;
+				
+				OnPropertyChanged(nameof(Selected));
+
+			}
+		}
+	}
+	
+    internal class ColorChatViewModel : ViewModelBase
     {
         private byte _red;
         public byte Red
@@ -68,6 +131,8 @@ namespace ColorChat.WPF.ViewModels
 		}
 
 		public ObservableCollection<ColorChatColorViewModel> Messages { get; }
+		
+		public LanguageSelectionViewModel LanguageSelectionViewModel { get; }
 
         public ICommand SendColorChatColorMessageCommand { get; }
 
@@ -78,6 +143,8 @@ namespace ColorChat.WPF.ViewModels
             SendColorChatColorMessageCommand = new SendColorChatColorMessageCommand(this, chatService);
 
 			Messages = new ObservableCollection<ColorChatColorViewModel>();
+
+			LanguageSelectionViewModel = new LanguageSelectionViewModel();
 
             chatService.ColorMessageReceived += ChatService_ColorMessageReceived;
 		}

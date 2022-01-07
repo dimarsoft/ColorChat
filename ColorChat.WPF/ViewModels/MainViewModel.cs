@@ -1,6 +1,6 @@
 ﻿namespace ColorChat.WPF.ViewModels
 {
-    public class MainViewModel
+    internal class MainViewModel
     {
         public ColorChatViewModel ColorChatViewModel { get; }
 

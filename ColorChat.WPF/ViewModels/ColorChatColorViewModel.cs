@@ -4,7 +4,7 @@ using System.Windows.Media;
 
 namespace ColorChat.WPF.ViewModels
 {
-    public class ColorChatColorViewModel : ViewModelBase
+    internal class ColorChatColorViewModel : ViewModelBase
     { 
         public ColorChatColor ColorChatColor { get; set; }
 

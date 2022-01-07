@@ -12,7 +12,38 @@
     FontSize="18"
     mc:Ignorable="d">
 
-    <StackPanel>
+    <StackPanel HorizontalAlignment="Center">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock
+                                          HorizontalAlignment="Center"
+                                          FontSize="32"
+                                          Text="Language"
+                                          TextAlignment="Center" />
+            <RibbonMenuButton 
+                Grid.Column="1"
+                Margin="0"
+                Label="{Binding LanguageSelectionViewModel.Selected.Name}" 
+                FontSize="32" HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                ItemsSource="{Binding LanguageSelectionViewModel.Languages}">
+                <RibbonMenuButton.ItemTemplate>                            
+                    <DataTemplate>
+                        <MenuItem
+                            IsCheckable="True"
+                            HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                            Header="{Binding Name}" 
+                            Command="{Binding DataContext.LanguageSelectionViewModel.SelectLangCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                            CommandParameter="{Binding }"
+                            IsChecked="{Binding IsSelected, Mode=OneWay}"/>
+                    </DataTemplate>
+                </RibbonMenuButton.ItemTemplate>
+            </RibbonMenuButton>
+            
+        </Grid>
+        
         <!-- Header -->
         <TextBlock
             HorizontalAlignment="Center"
@@ -47,10 +78,10 @@
                 Green="{Binding Green}"
                 Red="{Binding Red}" />
 
-            <Button Grid.Column="1" Margin="0 20 0 0" Padding="10 3"
-                HorizontalAlignment="Left"
-                Command="{Binding SendColorChatColorMessageCommand}"
-                Content="Send" />
+            <Button Margin="0 20 0 0" Padding="10 3"
+                    HorizontalAlignment="Left"
+                    Command="{Binding SendColorChatColorMessageCommand}"
+                    Content="Send" />
         </StackPanel>
 
         <!-- Color Messages Listing -->
